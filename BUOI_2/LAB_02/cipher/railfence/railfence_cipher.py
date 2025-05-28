@@ -1,6 +1,6 @@
 class RailFenceCipher:
-    def __init__(self):
-        pass
+    def __init__(self, key):
+        self.key = key.upper()  # Lưu trữ khóa, thường viết hoa để nhất quán
 
     def rail_fence_encrypt(self, plain_text, num_rails):
         rails = [[] for _ in range(num_rails)]

@@ -1,33 +1,33 @@
 class VigenereCipher:
-    def __init__(self):
-        pass
+    def __init__(self, key):
+        self.key = key.upper()  # Lưu trữ khóa, thường viết hoa để nhất quán
 
-    def vigenere_encrypt(self, plain_text, key):
-        encrypted_text = ""
+    def encrypt(self, plaintext):
+        ciphertext = ""
+        key_len = len(self.key)
         key_index = 0
-        for char in plain_text:
+        for char in plaintext:
             if char.isalpha():
-                key_shift = ord(key[key_index % len(key)].upper()) - ord('A')
-                if char.isupper():
-                    encrypted_text += chr(((ord(char) - ord('A') + key_shift) % 26) + ord('A'))
-                else:
-                    encrypted_text += chr(((ord(char) - ord('a') + key_shift) % 26) + ord('a'))
+                start = ord('A') if char.isupper() else ord('a')
+                shift = ord(self.key[key_index % key_len]) - ord('A')
+                shifted_char = chr((ord(char) - start + shift) % 26 + start)
+                ciphertext += shifted_char
                 key_index += 1
             else:
-                encrypted_text += char
-        return encrypted_text
+                ciphertext += char
+        return ciphertext
 
-    def vigenere_decrypt(self, encrypted_text, key):
-        decrypted_text = ""
+    def decrypt(self, ciphertext):
+        plaintext = ""
+        key_len = len(self.key)
         key_index = 0
-        for char in encrypted_text:
+        for char in ciphertext:
             if char.isalpha():
-                key_shift = ord(key[key_index % len(key)].upper()) - ord('A')
-                if char.isupper():
-                    decrypted_text += chr(((ord(char) - ord('A') - key_shift + 26) % 26) + ord('A'))
-                else:
-                    decrypted_text += chr(((ord(char) - ord('a') - key_shift + 26) % 26) + ord('a'))
+                start = ord('A') if char.isupper() else ord('a')
+                shift = ord(self.key[key_index % key_len]) - ord('A')
+                shifted_char = chr((ord(char) - start - shift + 26) % 26 + start)
+                plaintext += shifted_char
                 key_index += 1
             else:
-                decrypted_text += char
-        return decrypted_text
+                plaintext += char
+        return plaintext

@@ -1,6 +1,6 @@
 class TranspositionCipher:
-    def __init__(self):
-        pass
+    def __init__(self, key):
+        self.key = key.upper()  # Lưu trữ khóa, thường viết hoa để nhất quán
 
     def encrypt(self, text, key):
         encrypted_text = ''
@@ -10,7 +10,7 @@ class TranspositionCipher:
                 encrypted_text += text[pointer]
                 pointer += key
         return encrypted_text
-        
+
     def decrypt(self, text, key):
         decrypted_text = [''] * key
         row, col = 0, 0
